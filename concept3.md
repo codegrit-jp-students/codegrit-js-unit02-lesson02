@@ -61,6 +61,8 @@ validateCharCount(password).then(
 );
 ```
 
+<iframe width="100%" height="300" src="//jsfiddle.net/codegrit_hiro/Lv3os6n8/embedded/js,html,css,result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>
+
 #### catch(onRejection)
 
 catchメソッドは、rejected状態のオブジェクトを受け取って、処理を行うことが出来ます。catchメソッドの処理後は新しいPromiseオブジェクトを返します。実質的には、catchは`then(undefined, onRejection)`を呼び出しています。
@@ -103,7 +105,6 @@ const getDefaultAvatar = () => {
     .catch(() => { // getUserAvatar、getDefaultAvatarどちらも失敗
       console.log("Failed after all attempts.")
     })
-    
 }
 ```
 
@@ -166,7 +167,6 @@ Promise.all([promiseA(), promiseB(), promiseC()].then((results) => {
 例えば、ユーザー登録を行う時を考えてみましょう。この時、名前、メールアドレス、パスワードそれぞれのバリデーションを行い、全てが適切だった時だけ登録処理をしたいといます。この時次のように書くことが出来ます。
 
 ```javascript
-
 const validateName = (name, errors = []) => {
   return new Promise((resolve, reject) => {
     let result = バリデーション処理
@@ -191,7 +191,7 @@ const validateEmail = (email, errors = []) => {
   });
 }
 
-cosnt validatePassword = (password, errors = []) => {
+const validatePassword = (password, errors = []) => {
   return new Promise((resolve, reject) => {
     let result = バリデーション処理
     if (result === "success") {
@@ -205,19 +205,18 @@ cosnt validatePassword = (password, errors = []) => {
 
 const validate = (name, email, password, errors = []) => {
   return Promise.all([
-      validateName(name, errors), 
-      validateEmail(email, errors), 
-      validatePassword(password, errors)]
+      validateName(name, errors),
+      validateEmail(email, errors),
+      validatePassword(password, errors)])
     .then((results) => {
-      if errors.length === 0 {
-        Promise.resolve { 
+      if (errors.length === 0) {
+        return Promise.resolve({
           valid: true
-        }
+        });
       } else {
-        Promise.reject(errors)
+        return Promise.reject(errors)
       }
     })
-  )
 }
 
 let name = "code grit"
@@ -236,7 +235,8 @@ validate(name, email, password, errors)
   });
   console.log(message);
 })
-
 ```
+
+<iframe width="100%" height="300" src="//jsfiddle.net/codegrit_hiro/cgoqL4wz/1/embedded/js,html,css,result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>
 
 上記でvalidateName、validateEmail、validatePasswordの中で`reject`を利用していないことに注意してください。Promise.allでは、複数ある処理の内、どれから一つでもrejectedを返した場合、その時点で"rejected"状態のPromiseオブジェクトを返します。そのため、上記のバリデーションの例でrejectを利用すると、2つ以上問題のある入力がある場合でも、一つしかエラーが返ってきません。そのため、上記の例では`errors`という配列内にエラーオブジェクトを追加していくことで、複数のエラーメッセージを表示出来るようにしています。

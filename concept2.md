@@ -11,7 +11,7 @@ function logSomething(something) {
 
 function callName(name, action) {
   let something = "Hello " + name;
-  return action(name);
+  return action(something);
 }
 
 callName("World", logSomething);
@@ -21,6 +21,8 @@ callName("World", logSomething);
 ```
 Hello World
 ```
+
+<iframe width="100%" height="300" src="//jsfiddle.net/codegrit_hiro/1xgna609/2/embedded/js,html,css,result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>
 
 この例ではcallNameという関数の2つ目の引数にlogSomethingという関数を与えています。このlogSomethingをコールバック関数と呼びます。またcallName関数のように別の関数を返す関数のことを高次関数(Higher-order Function)と呼びます。
 
