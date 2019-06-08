@@ -109,7 +109,11 @@ const showAvatar = async (userId) => {
   showAvatar(2); // => デフォルトのプロフィールイメージが表示される。
 }
 ```
+
+<iframe width="100%" height="300" src="//jsfiddle.net/codegrit_hiro/7nhkzc2r/5/embedded/js,result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>
+
 **Async/Awaitのサンプルコードはこちら:**
+
 [js-unit02-lesson02-sample02](https://github.com/codegrit-jp-students/js-unit02-lesson02-sample02)
 
 ## 更に学ぼう
